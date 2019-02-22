@@ -1,15 +1,14 @@
 <?php
-require '../loadTemplate.php';
+require '../functions/loadTemplate.php';
 require '../database.php';
-require '../DatabaseTable.php';
-
-
-$title = 'Internet Joke Database';
+require '../classes/DatabaseTable.php';
 
 $jokesTable = new DatabaseTable($pdo, 'joke', 'id');
 
-$joke = $jokesTable->find('id', 1);
+if (isset($_GET['page'])) {
+    require '../pages/' . ltrim(explode('?', $_SERVER['REQUEST_URI'])[0], '/') . '.php';
+} else {
+    require '../pages/home.php';
+}
 
-$output = loadTemplate('../templates/home.html.php', ['joke' => $joke[0]]);
-
-require  '../templates/layout.html.php';
+require '../templates/layout.html.php';

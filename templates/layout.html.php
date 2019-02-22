@@ -11,9 +11,9 @@
       <h1>Internet Joke Database</h1>
     </header>
     <ul>
-      <li><a href="index.php">Home</a></li>
-      <li><a href="jokes.php">Jokes List</a></li>
-      <li><a href="editjoke.php">Add a new Joke</a></li>
+      <li><a href="index.php?page=home">Home</a></li>
+      <li><a href="index.php?page=jokes">Jokes List</a></li>
+      <li><a href="index.php?page=editjoke">Add a new Joke</a></li>
     </ul>
   </nav>
 
@@ -22,7 +22,7 @@
   </main>
 
   <footer>
-  &copy; IJDB 2018
+  &copy; IJDB 2019
   </footer>
   </body>
 </html>
