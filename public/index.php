@@ -1,11 +1,14 @@
 <?php
 require '../loadTemplate.php';
 require '../database.php';
-require '../functions.php';
+require '../DatabaseTable.php';
+
 
 $title = 'Internet Joke Database';
 
-$joke = find($pdo, 'joke', 'id', 1);
+$jokesTable = new DatabaseTable($pdo, 'joke', 'id');
+
+$joke = $jokesTable->find('id', 1);
 
 $output = loadTemplate('../templates/home.html.php', ['joke' => $joke[0]]);
 

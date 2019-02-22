@@ -3,14 +3,13 @@ require '../loadTemplate.php';
 
 require '../database.php';
 
-require '../functions.php';
+require '../DatabaseTable.php';
 
+$jokesTable = new DatabaseTable($pdo, 'joke', 'id');
 
-$jokes = findAll($pdo, 'joke');
+$jokes = $jokesTable->findAll();
 
 $title = 'Joke list';
-
-$templateVars = ['jokes' => $jokes];
 
 $output = loadTemplate('../templates/list.html.php', ['jokes' => $jokes]);
 

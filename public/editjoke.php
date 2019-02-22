@@ -4,19 +4,32 @@ require '../loadTemplate.php';
 
 require '../database.php';
 
-require '../functions.php';
+require '../DatabaseTable.php';
 
-if (isset($_GET['id'])) {
-    $joke = find($pdo, 'joke', $_GET['id'], 'id'[0]);
-} else {
-    $joke = false;
+$jokesTable = new DatabaseTable($pdo, 'joke', 'id');
+
+if (isset($_POST['joke'])) {
+	
+	$date = new DateTime();
+	
+	$joke = $_POST['joke'];
+	$joke['jokedate'] = $date->format('Y-m-d H:i:s');
+
+	$jokesTable->save($joke);
+
+	header('location: jokes.php');
+}
+else {
+	if  (isset($_GET['id'])) {
+		$result = $jokesTable->find('id', $_GET['id']);
+		$joke = $result[0];
+	}
+	else  {
+		$joke = false;
+	}
+
+	$output = loadTemplate('../templates/editjoke.html.php', ['joke' => $joke]);
+	$title = 'Edit joke';
 }
 
-if (isset($_POST['submit'])) {
-    save($pdo, 'joke', $_POST['joke'], 'id'[0]);
-    header('location: jokes.php');
-} else {
-    $output = loadTemplate('../templates/addjoke.html.php', ['joke' => $joke]);
-    $title = 'Add a new joke';
-}
 require  '../templates/layout.html.php';

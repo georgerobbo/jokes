@@ -1,8 +1,12 @@
 <?php
 
 require '../database.php';
-require '../functions.php';
+require '../DatabaseTable.php';
 
-deleteJoke($pdo, $_POST['id']);
+$jokesTable = new DatabaseTable($pdo, 'joke', 'id');
+
+$joke = $jokesTable->find('id', 1);
+
+$jokesTable->delete($_POST['id']);
 
 header('location: jokes.php');
